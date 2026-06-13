@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miel Dorada del Sur | Miel de Abeja Natural de Chile</title>
+    <meta name="description" content="Miel de abeja 100% natural, pura y artesanal, producida por apicultores chilenos. Descubre nuestra historia, productos y contáctanos.">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    
+    <style>
+        /* Importación de Fuentes */
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --color-noche: #1a1207;
+            --color-dorado: #e8a33d;
+            --color-miel: #c9701e;
+            --color-crema: #fffdf9;
+            --color-crema-suave: #fdeacb;
+            --color-texto: #3d2817;
+            --color-blanco: #ffffff;
+            
+            /* Textura de Panal en CSS Puro */
+            --textura-panal: radial-gradient(circle at 50% 50%, transparent 45%, rgba(232, 163, 61, 0.04) 48%, rgba(232, 163, 61, 0.08) 50%, transparent 54%),
+                             radial-gradient(circle at 0 0, transparent 45%, rgba(232, 163, 61, 0.04) 48%, rgba(232, 163, 61, 0.08) 50%, transparent 54%);
+
+            --fuente-display: 'Fraunces', serif;
+            --fuente-texto: 'Inter', sans-serif;
+            --transicion: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --radio-borde: 20px;
+            --sombra-suave: 0 10px 30px rgba(61, 40, 23, 0.06);
+            --sombra-fuerte: 0 20px 40px rgba(61, 40, 23, 0.12);
+            --max-ancho: 1200px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--fuente-texto);
+            color: var(--color-texto);
+            background-color: var(--color-crema);
+            background-image: var(--textura-panal);
+            background-size: 40px 40px;
+            line-height: 1.7;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--fuente-display);
+            color: var(--color-texto);
+            line-height: 1.2;
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--color-miel);
+            text-decoration: none;
+            transition: var(--transicion);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        header {
+            background-color: rgba(255, 253, 249, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(232, 163, 61, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(61, 40, 23, 0.03);
+        }
+
+        .header-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            max-width: var(--max-ancho);
+            margin: 0 auto;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        nav a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            color: var(--color-texto);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 50px;
+        }
+
+        nav a:hover {
+            background-color: var(--color-crema-suave);
+            color: var(--color-miel);
+        }
+
+        .auth-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-google {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--color-blanco);
+            color: var(--color-texto);
+            border: 2px solid var(--color-crema-suave);
+            border-radius: 50px;
+            padding: 0.6rem 1.4rem;
+            font-family: var(--fuente-texto);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        .btn-google:hover {
+            border-color: var(--color-dorado);
+            transform: translateY(-2px);
+            box-shadow: var(--sombra-suave);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, var(--color-crema-suave), #fff);
+            border: 1px solid rgba(232, 163, 61, 0.2);
+            border-radius: 50px;
+            padding: 0.4rem 1rem 0.4rem 0.4rem;
+        }
+
+        .btn-logout {
+            background: none;
+            color: var(--color-miel);
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .hero-section {
+            background: linear-gradient(145deg, #120b04 0%, #291c0b 100%);
+            color: var(--color-crema);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            border-bottom: 8px solid var(--color-dorado);
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 50% 50%, transparent 45%, rgba(232, 163, 61, 0.07) 48%, rgba(232, 163, 61, 0.12) 50%, transparent 54%);
+            background-size: 60px 60px;
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            padding: 6rem 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h1 {
+            color: var(--color-blanco);
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-section p {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: #fdeacb;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-dorado) 0%, var(--color-miel) 100%);
+            color: var(--color-noche);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(232, 163, 61, 0.4);
+        }
+
+        .btn-cta:hover {
+            background: linear-gradient(135deg, #fff 0%, var(--color-crema-suave) 100%);
+            color: var(--color-miel);
+            transform: translateY(-4px);
+        }
+
+        .container {
+            max-width: var(--max-ancho);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--color-dorado);
+            border-radius: 10px;
+        }
+
+        .historia-section {
+            padding: 5rem 1.5rem;
+        }
+
+        .historia-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .sabias-que {
+            background: linear-gradient(135deg, var(--color-noche) 0%, #2b1d0c 100%);
+            color: var(--color-crema);
+            border-radius: var(--radio-borde);
+            padding: 2rem;
+            box-shadow: var(--sombra-fuerte);
+            border-left: 5px solid var(--color-dorado);
+            margin-top: 1.5rem;
+        }
+
+        .sabias-que h4 { color: var(--color-dorado); margin-bottom: 0.5rem; }
+
+        .historia-image-container { position: relative; }
+
+        .historia-image-container::before {
+            content: "";
+            position: absolute;
+            inset: 15px -15px -15px 15px;
+            background-color: var(--color-crema-suave);
+            border-radius: var(--radio-borde);
+            z-index: 1;
+        }
+
+        .historia-img {
+            position: relative;
+            z-index: 2;
+            border-radius: var(--radio-borde);
+            box-shadow: var(--sombra-fuerte);
+        }
+
+        .productos-section {
+            padding: 5rem 1.5rem;
+            background-color: rgba(253, 234, 203, 0.25);
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .producto-card {
+            background-color: var(--color-blanco);
+            border-radius: var(--radio-borde);
+            overflow: hidden;
+            box-shadow: var(--sombra-suave);
+            border: 1px solid rgba(232, 163, 61, 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transicion);
+        }
+
+        .producto-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--sombra-fuerte);
+            border-color: var(--color-dorado);
+        }
+
+        .producto-image-wrapper {
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+        }
+
+        .producto-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .btn-card-consultar {
+            margin-top: auto;
+            display: block;
+            text-align: center;
+            background-color: var(--color-crema);
+            color: var(--color-miel);
+            padding: 0.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            border: 2px solid var(--color-crema-suave);
+        }
+
+        .producto-card:hover .btn-card-consultar {
+            background: linear-gradient(135deg, var(--color-dorado) 0%, var(--color-miel) 100%);
+            color: var(--color-noche);
+            border-color: transparent;
+        }
+
+        .contacto-section { padding: 5rem 1.5rem; }
+
+        .contacto-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+
+        .contacto-form-container {
+            background-color: var(--color-blanco);
+            padding: 3rem 2rem;
+            border-radius: var(--radio-borde);
+            box-shadow: var(--sombra-fuerte);
+        }
+
+        .contacto-form { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .form-group input, .form-group textarea {
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #f3ebd9;
+            border-radius: 12px;
+            background-color: #fffdfa;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--color-noche) 0%, #3d2817 100%);
+            color: var(--color-blanco);
+            border: none;
+            padding: 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .contacto-info-card {
+            background: linear-gradient(145deg, #241708 0%, #120b04 100%);
+            color: var(--color-crema);
+            padding: 3rem 2rem;
+            border-radius: var(--radio-borde);
+        }
+
+        .address-item { position: relative; padding-left: 2rem; margin-bottom: 1.25rem; }
+        .address-item::before { position: absolute; left: 0; color: var(--color-dorado); }
+        .location::before { content: "📍"; }
+        .phone::before { content: "📞"; }
+        .email::before { content: "✉️"; }
+
+        .widgets-info { border-top: 1px solid rgba(255, 244, 224, 0.1); margin-bottom: 3rem; padding-top: 2rem; }
+
+        .widget-row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+
+        .widget-item {
+            background-color: rgba(255, 254, 252, 0.05);
+            border: 1px solid rgba(232, 163, 61, 0.15);
+            border-radius: 14px;
+            padding: 1.25rem;
+            color: #fdeacb;
+        }
+
+        .widget-item strong { color: var(--color-dorado); display: block; margin-bottom: 0.5rem; }
+
+        footer {
+            background-color: var(--color-noche);
+            color: var(--color-crema);
+            padding: 4rem 1.5rem 2rem;
+            border-top: 4px solid var(--color-miel);
+            text-align: center;
+        }
+
+        .footer-redes { display: flex; justify-content: center; gap: 1.25rem; margin-top: 1rem; }
+
+        .footer-redes a {
+            background-color: rgba(255, 244, 224, 0.05);
+            border: 1px solid rgba(232, 163, 61, 0.2);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-legal-section {
+            border-top: 1px solid rgba(255, 244, 224, 0.08);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            color: rgba(255, 244, 224, 0.6);
+        }
+
+        footer nav ul { display: flex; gap: 1.5rem; }
+
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .historia-grid { grid-template-columns: 1.2fr 0.8fr; gap: 4rem; }
+            .contacto-grid { grid-template-columns: 1.2fr 0.8fr; }
+            .widget-row { grid-template-columns: repeat(3, 1fr); }
+            .footer-legal-section { flex-direction: row; justify-content: space-between; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content { padding: 9rem 1.5rem; }
+            section { padding: 7rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" title="Volver al inicio" class="logo-link" style="color: var(--color-texto); font-weight: 900; font-family: var(--fuente-display); font-size: 1.3rem;">
+                🍯 Miel Dorada
+            </a>
+
+            <nav aria-label="Navegación principal">
+                <ul>
+                    <li><a href="#historia">Historia</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="auth-container" id="auth-container">
+                <button id="btn-login" type="button" class="btn-google" aria-label="Iniciar sesión con tu cuenta de Google">
+                    <span>Iniciar sesión con Google</span>
+                </button>
+
+                <div id="user-profile" class="user-profile" hidden>
+                    <span id="user-name" class="user-name" style="font-weight: 600; font-size: 0.9rem; margin-right: 0.5rem;"></span>
+                    <button id="btn-logout" type="button" class="btn-logout">Cerrar sesión</button>
+                </div>
+                <p id="auth-mensaje" role="alert" hidden></p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <h1>Miel de Abeja Natural, Pura del Sur de Chile</h1>
+                <p>Cosechada artesanalmente, directo de nuestros apiarios a tu mesa.</p>
+                <a href="#productos" class="btn-cta">Ver Productos</a>
+            </div>
+        </section>
+
+        <section id="historia" class="historia-section">
+            <div class="container historia-grid">
+                <div class="historia-text">
+                    <h2 class="section-title" style="text-align: left; padding-bottom: 0.5rem;">Nuestra Historia</h2>
+                    <p>
+                        Desde hace tres generaciones, nuestra familia se dedica a la apicultura en la Región de Los Ríos,
+                        cuidando colmenas de manera responsable y respetuosa con el medio ambiente. Cada frasco de miel
+                        refleja el esfuerzo, la paciencia y el amor por la naturaleza.
+                    </p>
+                    <div class="sabias-que">
+                        <h4>¿Sabías que?</h4>
+                        <p>Chile es reconocido mundialmente por la calidad de su miel de ulmo, considerada una de las más finas del planeta.</p>
+                    </div>
+                </div>
+                <div class="historia-image-container">
+                    <div style="width: 100%; height: 300px; background-color: var(--color-crema-suave); border-radius: var(--radio-borde); display: flex; align-items: center; justify-content: center; font-family: var(--fuente-display); font-weight: bold; color: var(--color-miel);">[ Imagen Apiario ]</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="productos" class="productos-section">
+            <div class="container">
+                <h2 class="section-title">Nuestros Productos</h2>
+                <div class="productos-grid">
+                    <article class="producto-card">
+                        <div style="width: 100%; height: 200px; background-color: #f7dfb7; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--color-miel);">🍯 Miel de Ulmo</div>
+                        <div class="producto-content">
+                            <h3>Miel de Ulmo</h3>
+                            <p>Color claro, sabor suave y propiedades antibacterianas reconocidas internacionalmente.</p>
+                            <a href="#contacto" class="btn-card-consultar">Consultar disponibilidad</a>
+                        </div>
+                    </article>
+
+                    <article class="producto-card">
+                        <div style="width: 100%; height: 200px; background-color: #eec170; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--color-miel);">🍯 Miel Multifloral</div>
+                        <div class="producto-content">
+                            <h3>Miel Multifloral</h3>
+                            <p>Una mezcla equilibrada de néctares de diversas flores nativas, ideal para el consumo diario.</p>
+                            <a href="#contacto" class="btn-card-consultar">Consultar disponibilidad</a>
+                        </div>
+                    </article>
+
+                    <article class="producto-card">
+                        <div style="width: 100%; height: 200px; background-color: #f4a261; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--color-miel);">🍯 Miel de Quillay</div>
+                        <div class="producto-content">
+                            <h3>Miel de Quillay</h3>
+                            <p>Sabor robusto y aromático, extraída de los bosques de quillay del centro-sur de Chile.</p>
+                            <a href="#contacto" class="btn-card-consultar">Consultar disponibilidad</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contacto-section">
+            <div class="container contacto-grid">
+                <div class="contacto-form-container">
+                    <h2 style="margin-bottom: 1rem;">Contáctanos</h2>
+                    <form action="#" method="post" class="contacto-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" id="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                    </form>
+                </div>
+
+                <aside class="contacto-info-card">
+                    <h3>Ubicación Directa</h3>
+                    <address>
+                        <p class="address-item location">Lago Ranco, Región de Los Ríos, Chile</p>
+                        <p class="address-item phone">Teléfono: +56 9 1234 5678</p>
+                        <p class="address-item email">Correo: contacto@mieldorada.cl</p>
+                    </address>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <aside class="widgets-info">
+                <div class="widget-row">
+                    <div id="widget-dolar" class="widget-item"><strong>Indicador Económico</strong>Cargando valor del dólar...</div>
+                    <div id="widget-feriado" class="widget-item"><strong>Calendario Chile</strong>Cargando próximo feriado...</div>
+                    <div id="widget-clima" class="widget-item"><strong>Clima en Apiarios</strong>Cargando clima...</div>
+                </div>
+            </aside>
+            
+            <div class="footer-legal-section">
+                <p>&copy; 2026 Miel Dorada del Sur. Todos los derechos reservados.</p>
+                <nav>
+                    <ul>
+                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Términos</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js" defer></script>
+</body>
+</html>

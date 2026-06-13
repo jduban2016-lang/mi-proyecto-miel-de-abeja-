@@ -1,0 +1,717 @@
+/* ==========================================================================
+   IMPORTACIÓN DE FUENTES - Google Fonts
+   Fraunces (display, orgánica) + Inter (cuerpo, legible)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ==========================================================================
+   VARIABLES CSS GLOBALES
+   ========================================================================== */
+:root {
+    /* Paleta de Colores Enriquecida */
+    --color-noche: #1a1207;       /* Fondo oscuro hero y footer */
+    --color-dorado: #e8a33d;      /* Oro de abeja principal */
+    --color-miel: #c9701e;        /* Ámbar profundo / hovers */
+    --color-crema: #fffdf9;       /* Fondo base ultra suave */
+    --color-crema-suave: #fdeacb;  /* Elementos secundarios */
+    --color-texto: #3d2817;       /* Café orgánico profundo para lectura */
+    --color-blanco: #ffffff;
+    
+    /* Texturas Avanzadas CSS - Patrón de Panal Repetible */
+    --textura-panal: radial-gradient(circle at 50% 50%, transparent 45%, rgba(232, 163, 61, 0.04) 48%, rgba(232, 163, 61, 0.08) 50%, transparent 54%),
+                     radial-gradient(circle at 0 0, transparent 45%, rgba(232, 163, 61, 0.04) 48%, rgba(232, 163, 61, 0.08) 50%, transparent 54%);
+
+    /* Tipografía */
+    --fuente-display: 'Fraunces', serif;
+    --fuente-texto: 'Inter', sans-serif;
+
+    /* Utilidades de Diseño */
+    --transicion: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Transición más fluida y premium */
+    --radio-borde: 20px; /* Bordes más orgánicos y amigables */
+    --sombra-suave: 0 10px 30px rgba(61, 40, 23, 0.06);
+    --sombra-fuerte: 0 20px 40px rgba(61, 40, 23, 0.12);
+    --max-ancho: 1200px;
+}
+
+/* ==========================================================================
+   RESET BÁSICO Y ESTILOS GLOBALES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--fuente-texto);
+    color: var(--color-texto);
+    background-color: var(--color-crema);
+    /* Inyección de la textura de panal sutil en todo el fondo del sitio */
+    background-image: var(--textura-panal);
+    background-size: 40px 40px;
+    line-height: 1.7;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--fuente-display);
+    color: var(--color-texto);
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+a {
+    color: var(--color-miel);
+    text-decoration: none;
+    transition: var(--transicion);
+}
+
+ul {
+    list-style: none;
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-dorado);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   HEADER Y NAVEGACIÓN (Efecto Glassmorphism Elevado)
+   ========================================================================== */
+header {
+    background-color: rgba(255, 253, 249, 0.85);
+    backdrop-filter: blur(12px); /* Difumina lo que pasa detrás al hacer scroll */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(232, 163, 61, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(61, 40, 23, 0.03);
+}
+
+.header-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    transition: var(--transicion);
+}
+
+.logo-link:hover {
+    transform: scale(1.03);
+}
+
+nav ul {
+    display: flex;
+    gap: 0.5rem;
+}
+
+nav a {
+    display: block;
+    padding: 0.6rem 1.2rem;
+    color: var(--color-texto);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    transition: var(--transicion);
+}
+
+nav a:hover {
+    background-color: var(--color-crema-suave);
+    color: var(--color-miel);
+}
+
+/* ==========================================================================
+   AUTENTICACIÓN DE USUARIOS
+   ========================================================================== */
+.auth-container {
+    display: flex;
+    align-items: center;
+}
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--color-blanco);
+    color: var(--color-texto);
+    border: 2px solid var(--color-crema-suave);
+    border-radius: 50px;
+    padding: 0.6rem 1.4rem;
+    font-family: var(--fuente-texto);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transicion);
+    box-shadow: 0 4px 10px rgba(61, 40, 23, 0.04);
+}
+
+.btn-google:hover {
+    border-color: var(--color-dorado);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-suave);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--color-crema-suave), #fff);
+    border: 1px solid rgba(232, 163, 61, 0.2);
+    border-radius: 50px;
+    padding: 0.4rem 1rem 0.4rem 0.4rem;
+    box-shadow: var(--sombra-suave);
+}
+
+.user-avatar {
+    border: 2px solid var(--color-dorado);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-logout {
+    background: none;
+    color: var(--color-miel);
+    border: none;
+    font-family: var(--fuente-texto);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: var(--transicion);
+}
+
+.btn-logout:hover {
+    color: var(--color-noche);
+}
+
+/* ==========================================================================
+   HERO - Gran Impacto Visual con Degradado Orgánico
+   ========================================================================== */
+.hero-section {
+    background: linear-gradient(145deg, #120b04 0%, #291c0b 100%);
+    color: var(--color-crema);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-bottom: 8px solid var(--color-dorado);
+}
+
+/* Inyección de textura de panal dorada e hiper-sutil exclusiva para el Hero */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 50% 50%, transparent 45%, rgba(232, 163, 61, 0.07) 48%, rgba(232, 163, 61, 0.12) 50%, transparent 54%);
+    background-size: 60px 60px;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.hero-content {
+    padding: 6rem 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    color: var(--color-blanco);
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.hero-section p {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    color: #fdeacb;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+}
+
+.btn-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--color-dorado) 0%, var(--color-miel) 100%);
+    color: var(--color-noche);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 8px 25px rgba(232, 163, 61, 0.4);
+    transform: translateY(0);
+}
+
+.btn-cta:hover {
+    background: linear-gradient(135deg, #fff 0%, var(--color-crema-suave) 100%);
+    color: var(--color-miel);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(252, 252, 252, 0.2);
+}
+
+/* ==========================================================================
+   ESTILOS DE SECCIONES GENERALES
+   ========================================================================== */
+.container {
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    width: 100%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+/* Línea decorativa inferior con diseño fluido */
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--color-dorado);
+    border-radius: 10px;
+}
+
+/* ==========================================================================
+   SECCIÓN HISTORIA (Layout Asimétrico Moderno)
+   ========================================================================== */
+.historia-section {
+    padding: 5rem 1.5rem;
+}
+
+.historia-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.historia-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.historia-text p {
+    font-size: 1.1rem;
+    color: rgba(61, 40, 23, 0.85);
+}
+
+/* Tarjeta informativa flotante */
+.sabias-que {
+    background: linear-gradient(135deg, var(--color-noche) 0%, #2b1d0c 100%);
+    color: var(--color-crema);
+    border-radius: var(--radio-borde);
+    padding: 2rem;
+    box-shadow: var(--sombra-fuerte);
+    border-left: 5px solid var(--color-dorado);
+}
+
+.sabias-que h4 {
+    color: var(--color-dorado);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Contenedor estético para la imagen */
+.historia-image-container {
+    position: relative;
+}
+
+.historia-image-container::before {
+    content: "";
+    position: absolute;
+    inset: 15px -15px -15px 15px;
+    background-color: var(--color-crema-suave);
+    border-radius: var(--radio-borde);
+    z-index: 1;
+}
+
+.historia-img {
+    position: relative;
+    z-index: 2;
+    border-radius: var(--radio-borde);
+    box-shadow: var(--sombra-fuerte);
+}
+
+/* ==========================================================================
+   SECCIÓN PRODUCTOS (Tarjetas Premium en Grid)
+   ========================================================================== */
+.productos-section {
+    padding: 5rem 1.5rem;
+    background-color: rgba(253, 234, 203, 0.25); /* Tinte cálido de fondo */
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.producto-card {
+    background-color: var(--color-blanco);
+    border-radius: var(--radio-borde);
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+    border: 1px solid rgba(232, 163, 61, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.producto-image-wrapper {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background-color: var(--color-crema);
+}
+
+.producto-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.producto-card:hover .producto-image-wrapper img {
+    transform: scale(1.08);
+}
+
+.producto-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-fuerte);
+    border-color: var(--color-dorado);
+}
+
+.producto-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.producto-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.producto-content p {
+    color: rgba(61, 40, 23, 0.75);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+/* Botón estilizado de la tarjeta */
+.btn-card-consultar {
+    margin-top: auto;
+    display: block;
+    text-align: center;
+    background-color: var(--color-crema);
+    color: var(--color-miel);
+    padding: 0.8rem;
+    border-radius: 50px;
+    font-weight: 700;
+    border: 2px solid var(--color-crema-suave);
+}
+
+.producto-card:hover .btn-card-consultar {
+    background: linear-gradient(135deg, var(--color-dorado) 0%, var(--color-miel) 100%);
+    color: var(--color-noche);
+    border-color: transparent;
+    box-shadow: 0 5px 15px rgba(201, 112, 30, 0.2);
+}
+
+/* ==========================================================================
+   SECCIÓN CONTACTO (Formularios e Interfaces Limpias)
+   ========================================================================== */
+.contacto-section {
+    padding: 5rem 1.5rem;
+}
+
+.contacto-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+.contacto-form-container {
+    background-color: var(--color-blanco);
+    padding: 3rem 2rem;
+    border-radius: var(--radio-borde);
+    box-shadow: var(--sombra-fuerte);
+    border: 1px solid rgba(232, 163, 61, 0.1);
+}
+
+.contacto-form-container p {
+    margin-bottom: 2rem;
+    color: rgba(61, 40, 23, 0.8);
+}
+
+.contacto-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.9rem 1.2rem;
+    border: 2px solid #f3ebd9;
+    border-radius: 12px;
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    background-color: #fffdfa;
+    transition: var(--transicion);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-dorado);
+    box-shadow: 0 0 0 4px rgba(232, 163, 61, 0.15);
+    background-color: var(--color-blanco);
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--color-noche) 0%, #3d2817 100%);
+    color: var(--color-blanco);
+    border: none;
+    padding: 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: var(--transicion);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, var(--color-dorado) 0%, var(--color-miel) 100%);
+    color: var(--color-noche);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232, 163, 61, 0.3);
+}
+
+/* Bloque lateral de información */
+.contacto-info-card {
+    background: linear-gradient(145deg, #241708 0%, #120b04 100%);
+    color: var(--color-crema);
+    padding: 3rem 2rem;
+    border-radius: var(--radio-borde);
+    box-shadow: var(--sombra-fuerte);
+    height: 100%;
+}
+
+.contacto-info-card h3 {
+    color: var(--color-blanco);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.address-item {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+}
+
+/* Indicadores de contacto decorativos de texto */
+.address-item::before {
+    position: absolute;
+    left: 0;
+    color: var(--color-dorado);
+    font-weight: 900;
+}
+.location::before { content: "📍"; }
+.phone::before { content: "📞"; }
+.email::before { content: "✉️"; }
+
+/* ==========================================================================
+   WIDGETS DE APIs CHILENAS (Clima, Dólar, Feriados)
+   ========================================================================== */
+.widgets-info {
+    border-top: 1px solid rgba(255, 244, 224, 0.1);
+    margin-bottom: 3rem;
+    padding-top: 2rem;
+}
+
+.widget-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.widget-item {
+    background-color: rgba(255, 254, 252, 0.05);
+    border: 1px solid rgba(232, 163, 61, 0.15);
+    border-radius: 14px;
+    padding: 1.25rem;
+    font-size: 0.95rem;
+    color: #fdeacb;
+    text-align: left;
+    transition: var(--transicion);
+}
+
+.widget-item:hover {
+    background-color: rgba(255, 254, 252, 0.09);
+    border-color: var(--color-dorado);
+}
+
+/* Estilo destacado para los datos numéricos de la API */
+.widget-item strong {
+    color: var(--color-dorado);
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   FOOTER (Pie de página integrado)
+   ========================================================================== */
+footer {
+    background-color: var(--color-noche);
+    color: var(--color-crema);
+    padding: 4rem 1.5rem 2rem;
+    border-top: 4px solid var(--color-miel);
+}
+
+.footer-social-section {
+    margin-bottom: 2.5rem;
+}
+
+.footer-social-section p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-family: var(--fuente-display);
+    color: var(--color-blanco);
+}
+
+.footer-redes {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.footer-redes a {
+    background-color: rgba(255, 244, 224, 0.05);
+    border: 1px solid rgba(232, 163, 61, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-redes a:hover {
+    background: linear-gradient(135deg, var(--color-dorado) 0%, var(--color-miel) 100%);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(201, 112, 30, 0.3);
+}
+
+.footer-legal-section {
+    border-top: 1px solid rgba(255, 244, 224, 0.08);
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: rgba(255, 244, 224, 0.6);
+}
+
+footer nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+footer nav a {
+    color: rgba(255, 244, 224, 0.7);
+}
+
+footer nav a:hover {
+    color: var(--color-dorado);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES - RESPONSIVIDAD (Tablets y Desktop)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .historia-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 4rem;
+    }
+
+    .contacto-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+    }
+
+    .widget-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .footer-legal-section {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-content {
+        padding: 9rem 1.5rem;
+    }
+    
+    section {
+        padding: 7rem 1.5rem;
+    }
+}
+
+/* ==========================================================================
+   ACCESIBILIDAD - Reducción de movimiento por Hardware/OS
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
